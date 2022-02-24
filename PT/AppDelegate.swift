@@ -25,11 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setRootNavigation() {
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        let vc = InitialViewController()
-        vc.window = window
-        
-        window?.rootViewController = vc
-        window?.makeKeyAndVisible()
+        let navigation = UINavigationController()
+        let coordinator = AppCoordinator(navigationController: navigation)
+        coordinator.window = window
+        coordinator.start()
     }
 }
 

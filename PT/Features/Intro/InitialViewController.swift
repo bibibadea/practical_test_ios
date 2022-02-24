@@ -11,10 +11,10 @@ final class InitialViewController: PTViewController {
     
     // MARK: - Outlets
     @IBOutlet private weak var spinner: PTSpinner!
-    @IBOutlet weak var logo: UIImageView!
+    @IBOutlet private weak var logo: UIImageView!
     
     // MARK: - Properties
-    var window: UIWindow?
+    var coordinator: AppCoordinator?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -26,7 +26,12 @@ final class InitialViewController: PTViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        fetchProducts()
+        //@TODO fetch from cache?
+        self.spinner.on()
+        delay {
+            self.spinner.off()
+            self.coordinator?.openProductModule()
+        }
     }
 }
 
@@ -40,26 +45,3 @@ extension InitialViewController {
         logo.tintColor = .white
     }
 }
-
-// MARK: - Request
-extension InitialViewController {
-    private func fetchProducts() {
-        //@TODO api request
-        delay {
-            self.setNavigationToProductList()
-        }
-    }
-}
-
-// MARK: - Navigation
-extension InitialViewController {
-    private func setNavigationToProductList() {
-        let vc = ProductsListViewController()
-        let navigation = UINavigationController(rootViewController: vc)
-        
-        window?.rootViewController = navigation
-        window?.makeKeyAndVisible()
-    }
-}
-
-
