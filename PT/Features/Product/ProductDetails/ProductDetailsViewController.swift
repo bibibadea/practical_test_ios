@@ -21,6 +21,7 @@ final class ProductDetailsViewController: PTViewController {
     @IBOutlet private weak var clientsValueLabel: UILabel!
     
     // MARK: - Properties
+    var product: Product?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -29,6 +30,7 @@ final class ProductDetailsViewController: PTViewController {
         setupUI()
     }
     
+    // MARK: - UI
     private func setupUI() {
         navigationItem.title = .productDetails
         
@@ -37,9 +39,9 @@ final class ProductDetailsViewController: PTViewController {
         releaseDateLabel.text = .releaseDate
         clientsLabel.text = .clients
         
-        nameValueLabel.text = " "
-        aliasValueLabel.text = " "
-        releaseDateValueLabel.text = " "
-        clientsValueLabel.text = " "
+        nameValueLabel.text = product?.name ?? " "
+        aliasValueLabel.text = product?.alias ?? " "
+        releaseDateValueLabel.text = product?.releaseDate ?? " "
+        clientsValueLabel.text = "\(product?.clients.count ?? 0)"
     }
 }

@@ -16,6 +16,7 @@ final class ProductTableViewCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
     
     // MARK: - Properties
+    private var product: Product?
     private var indexPath: IndexPath?
     
     // MARK: - Lifecycle
@@ -41,13 +42,17 @@ final class ProductTableViewCell: UITableViewCell {
     
     private func updateUI() {
         guard let indexPath = indexPath else { return }
+        guard let product = product else { return }
         
         // set top space
         boxView_top.constant = indexPath.row == 0 ? 20 : 0
+        
+        titleLabel.text = product.name
     }
     
     // MARK: - Set Cell
-    func set(indexPath: IndexPath?) {
+    func set(product: Product?, indexPath: IndexPath?) {
+        self.product = product
         self.indexPath = indexPath
         
         updateUI()

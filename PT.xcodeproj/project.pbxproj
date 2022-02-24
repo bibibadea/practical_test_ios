@@ -23,6 +23,18 @@
 		8B09254727C6EED0006A6488 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09254627C6EED0006A6488 /* UITableView.swift */; };
 		8B09254F27C6EFCA006A6488 /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09254D27C6EFCA006A6488 /* ProductTableViewCell.swift */; };
 		8B09255027C6EFCA006A6488 /* ProductTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B09254E27C6EFCA006A6488 /* ProductTableViewCell.xib */; };
+		8B09257A27C7F903006A6488 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09257927C7F902006A6488 /* Endpoint.swift */; };
+		8B09257F27C7F952006A6488 /* DataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09257E27C7F952006A6488 /* DataRequest.swift */; };
+		8B09258427C7FA94006A6488 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09258327C7FA94006A6488 /* NetworkRequest.swift */; };
+		8B09258927C7FD0D006A6488 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09258827C7FD0D006A6488 /* Error.swift */; };
+		8B09258E27C7FF80006A6488 /* Network+Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09258D27C7FF80006A6488 /* Network+Products.swift */; };
+		8B09259427C8072D006A6488 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09259327C8072D006A6488 /* Product.swift */; };
+		8B09259927C807CE006A6488 /* Network+Grades.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09259827C807CE006A6488 /* Network+Grades.swift */; };
+		8B09259E27C80873006A6488 /* Grade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09259D27C80873006A6488 /* Grade.swift */; };
+		8B0925A727C80B8D006A6488 /* ProductFetching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0925A627C80B8D006A6488 /* ProductFetching.swift */; };
+		8B0925B227C80C43006A6488 /* GradeFetching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0925B127C80C43006A6488 /* GradeFetching.swift */; };
+		8B0925CF27C80DF8006A6488 /* ProductsLevel1Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0925CE27C80DF8006A6488 /* ProductsLevel1Fetcher.swift */; };
+		8B0925DD27C811FF006A6488 /* ProductsLevel2Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0925DC27C811FF006A6488 /* ProductsLevel2Fetcher.swift */; };
 		8BA232CF27C611100013F559 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA232CE27C611100013F559 /* AppDelegate.swift */; };
 		8BA232D827C611190013F559 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BA232D727C611190013F559 /* Assets.xcassets */; };
 		8BA232DB27C611190013F559 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BA232D927C611190013F559 /* LaunchScreen.storyboard */; };
@@ -64,6 +76,18 @@
 		8B09254627C6EED0006A6488 /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		8B09254D27C6EFCA006A6488 /* ProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
 		8B09254E27C6EFCA006A6488 /* ProductTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductTableViewCell.xib; sourceTree = "<group>"; };
+		8B09257927C7F902006A6488 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		8B09257E27C7F952006A6488 /* DataRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRequest.swift; sourceTree = "<group>"; };
+		8B09258327C7FA94006A6488 /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		8B09258827C7FD0D006A6488 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		8B09258D27C7FF80006A6488 /* Network+Products.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network+Products.swift"; sourceTree = "<group>"; };
+		8B09259327C8072D006A6488 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		8B09259827C807CE006A6488 /* Network+Grades.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network+Grades.swift"; sourceTree = "<group>"; };
+		8B09259D27C80873006A6488 /* Grade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grade.swift; sourceTree = "<group>"; };
+		8B0925A627C80B8D006A6488 /* ProductFetching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductFetching.swift; sourceTree = "<group>"; };
+		8B0925B127C80C43006A6488 /* GradeFetching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeFetching.swift; sourceTree = "<group>"; };
+		8B0925CE27C80DF8006A6488 /* ProductsLevel1Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsLevel1Fetcher.swift; sourceTree = "<group>"; };
+		8B0925DC27C811FF006A6488 /* ProductsLevel2Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsLevel2Fetcher.swift; sourceTree = "<group>"; };
 		8BA232CB27C611100013F559 /* PT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BA232CE27C611100013F559 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BA232D727C611190013F559 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -124,6 +148,12 @@
 		8B0924C027C61B49006A6488 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				8B09258827C7FD0D006A6488 /* Error.swift */,
+				8B09257927C7F902006A6488 /* Endpoint.swift */,
+				8B09257E27C7F952006A6488 /* DataRequest.swift */,
+				8B09258327C7FA94006A6488 /* NetworkRequest.swift */,
+				8B09258D27C7FF80006A6488 /* Network+Products.swift */,
+				8B09259827C807CE006A6488 /* Network+Grades.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -161,6 +191,7 @@
 		8B0924FD27C6CD4A006A6488 /* Product */ = {
 			isa = PBXGroup;
 			children = (
+				8B09259227C80723006A6488 /* Models */,
 				8B09250827C6CD70006A6488 /* ProductsList */,
 				8B09250C27C6CD7D006A6488 /* ProductDetails */,
 			);
@@ -170,9 +201,9 @@
 		8B09250827C6CD70006A6488 /* ProductsList */ = {
 			isa = PBXGroup;
 			children = (
+				8B0925A327C80B1B006A6488 /* Models */,
 				8B09253427C6E81C006A6488 /* Views */,
-				8B0924FE27C6CD6B006A6488 /* ProductsListViewController.swift */,
-				8B0924FF27C6CD6B006A6488 /* ProductsListViewController.xib */,
+				8B0925A227C80B05006A6488 /* Controllers */,
 			);
 			path = ProductsList;
 			sourceTree = "<group>";
@@ -199,6 +230,7 @@
 			children = (
 				8B09254B27C6EFA9006A6488 /* Header */,
 				8B09254C27C6EFB2006A6488 /* Cells */,
+				8B0924FF27C6CD6B006A6488 /* ProductsListViewController.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -219,6 +251,66 @@
 				8B09254E27C6EFCA006A6488 /* ProductTableViewCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		8B09259227C80723006A6488 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8B09259327C8072D006A6488 /* Product.swift */,
+				8B09259D27C80873006A6488 /* Grade.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8B0925A227C80B05006A6488 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8B0924FE27C6CD6B006A6488 /* ProductsListViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		8B0925A327C80B1B006A6488 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8B0925B627C80C83006A6488 /* Network */,
+				8B0925A427C80B1F006A6488 /* Protocols */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8B0925A427C80B1F006A6488 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				8B0925A527C80B65006A6488 /* Network */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		8B0925A527C80B65006A6488 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		8B0925B627C80C83006A6488 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				8B0925B727C80C8D006A6488 /* Protocols */,
+				8B0925CE27C80DF8006A6488 /* ProductsLevel1Fetcher.swift */,
+				8B0925DC27C811FF006A6488 /* ProductsLevel2Fetcher.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		8B0925B727C80C8D006A6488 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				8B0925A627C80B8D006A6488 /* ProductFetching.swift */,
+				8B0925B127C80C43006A6488 /* GradeFetching.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		8BA232C227C611100013F559 = {
@@ -405,16 +497,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B0925CF27C80DF8006A6488 /* ProductsLevel1Fetcher.swift in Sources */,
+				8B0925A727C80B8D006A6488 /* ProductFetching.swift in Sources */,
+				8B09258927C7FD0D006A6488 /* Error.swift in Sources */,
 				8B09251E27C6CF8B006A6488 /* PTSpinner.swift in Sources */,
 				8B09252727C6E76A006A6488 /* Strings.swift in Sources */,
 				8B09250F27C6CDDC006A6488 /* ProductDetailsViewController.swift in Sources */,
+				8B09257A27C7F903006A6488 /* Endpoint.swift in Sources */,
+				8B09258427C7FA94006A6488 /* NetworkRequest.swift in Sources */,
 				8B0924F527C6219C006A6488 /* PTViewController.swift in Sources */,
 				8B0924CE27C61DC2006A6488 /* InitialViewController.swift in Sources */,
+				8B0925B227C80C43006A6488 /* GradeFetching.swift in Sources */,
 				8B09254F27C6EFCA006A6488 /* ProductTableViewCell.swift in Sources */,
+				8B09257F27C7F952006A6488 /* DataRequest.swift in Sources */,
 				8B09250027C6CD6B006A6488 /* ProductsListViewController.swift in Sources */,
+				8B09259427C8072D006A6488 /* Product.swift in Sources */,
+				8B09258E27C7FF80006A6488 /* Network+Products.swift in Sources */,
+				8B09259E27C80873006A6488 /* Grade.swift in Sources */,
+				8B09259927C807CE006A6488 /* Network+Grades.swift in Sources */,
 				8B0924E727C61F11006A6488 /* Globals.swift in Sources */,
 				8B09254727C6EED0006A6488 /* UITableView.swift in Sources */,
 				8B09253627C6E835006A6488 /* ProductsListHeaderView.swift in Sources */,
+				8B0925DD27C811FF006A6488 /* ProductsLevel2Fetcher.swift in Sources */,
 				8B0924E227C61E9F006A6488 /* UIView.swift in Sources */,
 				8BA232CF27C611100013F559 /* AppDelegate.swift in Sources */,
 			);

@@ -8,7 +8,7 @@
 import UIKit
 
 final class ProductsListViewController: PTViewController {
-
+    
     // MARK: - Outlets
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var tableView_top: NSLayoutConstraint!
@@ -19,12 +19,17 @@ final class ProductsListViewController: PTViewController {
     
     // MARK: - Properties
     private var fetchingInProgress = false
+    private var level1ProductFetcher: ProductFetching?
+    private var level2ProductFetcher: ProductFetching?
+    
+    private var selectedTab: ProductHeaderTab = .level1
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUI()
+        setupData()
         fetchProducts()
     }
     
@@ -34,7 +39,7 @@ final class ProductsListViewController: PTViewController {
         fixRefreshControl()
     }
     
-    // MARK: - Methdos
+    // MARK: - UI
     private func setupUI() {
         navigationController?.navigationBar.tintColor = .black
         navigationItem.title = .products
@@ -53,7 +58,7 @@ final class ProductsListViewController: PTViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = 80
-
+        
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .black
         refreshControl.addTarget(self, action: #selector(tablePulled), for: .valueChanged)
@@ -96,31 +101,59 @@ final class ProductsListViewController: PTViewController {
             strongSelf.tableView.refreshControl?.endRefreshing()
         }
     }
+    
+    // MARK: - Data
+    private func setupData() {
+        level1ProductFetcher = ProductsLevel1Fetcher(networkRequest: NetworkRequest())
+        level2ProductFetcher = ProductsLevel2Fetcher(networkRequest: NetworkRequest())
+    }
 }
 
 // MARK: - TableView
 extension ProductsListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        if selectedTab == .level1 {
+            return level1ProductFetcher?.products.count ?? 0
+        } else if selectedTab == .level2 {
+            return level2ProductFetcher?.products.count ?? 0
+        } else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(withCell: ProductTableViewCell.self, at: indexPath)
         
-        cell.set(indexPath: indexPath)
+        var product: Product?
+        
+        if selectedTab == .level1 {
+            product = level1ProductFetcher?.products[indexPath.row]
+        } else if selectedTab == .level2 {
+            product = level2ProductFetcher?.products[indexPath.row]
+        } else {
+            
+        }
+        
+        cell.set(product: product, indexPath: indexPath)
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
+        guard selectedTab != .grades else { return }
+        
         let vc = ProductDetailsViewController()
+        
+        if selectedTab == .level1 {
+            vc.product = level1ProductFetcher?.products[indexPath.row]
+        } else if selectedTab == .level2 {
+            vc.product = level2ProductFetcher?.products[indexPath.row]
+        }
         
         navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
         UITableView.automaticDimension
     }
     
@@ -140,6 +173,9 @@ extension ProductsListViewController: UITableViewDataSource, UITableViewDelegate
 // MARK: - Header Delegate
 extension ProductsListViewController: ProductsListHeaderViewDelegate {
     func select(tab: ProductHeaderTab) {
+        selectedTab = tab
+        tableView.reloadData()
+        
         fetchProducts()
     }
 }
@@ -160,8 +196,42 @@ extension ProductsListViewController {
         }
         
         fetchingInProgress = true
+        let dispatchGroup = DispatchGroup()
         
-        delay(4) { [weak self] in
+        // Fetch Products from Level1
+        dispatchGroup.enter()
+        level1ProductFetcher?.fetchProducts(completion: { [weak self] success, error in
+            guard let strongSelf = self else { return }
+            
+            DispatchQueue.main.async {
+                dispatchGroup.leave()
+                if success {
+                    //
+                } else {
+                    strongSelf.ok(error)
+                }
+            }
+        })
+        
+        
+        // Fetch Products from Level2
+        dispatchGroup.enter()
+        level2ProductFetcher?.fetchProducts(completion: { [weak self] success, error in
+            guard let strongSelf = self else { return }
+            
+            DispatchQueue.main.async {
+                dispatchGroup.leave()
+                if success {
+                    //
+                } else {
+                    strongSelf.ok(error)
+                }
+            }
+        })
+        
+        //
+        dispatchGroup.notify(queue: .main) { [weak self] in
+            
             guard let strongSelf = self else { return }
             
             strongSelf.fetchingInProgress = false

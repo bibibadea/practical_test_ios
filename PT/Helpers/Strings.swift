@@ -22,4 +22,7 @@ extension String {
     static let clients = "Clients"
     
     static let fetchingData = "Fetching Data..."
+    
+    static let error = "Error"
+    static let ok = "OK"
 }
