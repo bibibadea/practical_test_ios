@@ -33,6 +33,10 @@ final class ProductsListViewController: PTViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = 80
+
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.tintColor = .systemBlue
+        tableView.refreshControl?.addTarget(self, action: #selector(tablePulled), for: .valueChanged)
         
         tableView.reloadData()
     }
@@ -90,6 +94,14 @@ extension ProductsListViewController: ProductsListHeaderViewDelegate {
 extension ProductsListViewController {
     private func fetchProducts() {
         
+    }
+    
+    @objc private func tablePulled() {
+        print(#function)
+        
+        delay {
+            self.tableView.refreshControl?.endRefreshing()
+        }
     }
 }
 
