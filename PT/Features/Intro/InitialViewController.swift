@@ -21,6 +21,11 @@ final class InitialViewController: PTViewController {
         super.viewDidLoad()
         
         setupUI()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         fetchProducts()
     }
 }
@@ -40,7 +45,9 @@ extension InitialViewController {
 extension InitialViewController {
     private func fetchProducts() {
         //@TODO api request
-        setNavigationToProductList()
+        delay {
+            self.setNavigationToProductList()
+        }
     }
 }
 

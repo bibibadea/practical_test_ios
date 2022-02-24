@@ -26,6 +26,10 @@ final class ProductsListHeaderView: UITableViewHeaderFooterView {
     @IBOutlet private weak var productsLevel2Button: UIButton!
     @IBOutlet private weak var gradesButton: UIButton!
     
+    @IBOutlet private weak var productsLevel1Button_width: NSLayoutConstraint!
+    @IBOutlet private weak var productsLevel2Button_width: NSLayoutConstraint!
+    @IBOutlet private weak var gradesButton_width: NSLayoutConstraint!
+    
     @IBOutlet private weak var selectedTabView: UIView!
     @IBOutlet private weak var selectedTab_leading: NSLayoutConstraint!
     @IBOutlet private weak var selectedTab_width: NSLayoutConstraint!
@@ -33,8 +37,6 @@ final class ProductsListHeaderView: UITableViewHeaderFooterView {
     @IBOutlet private weak var bottomLineView: UIView!
     
     // MARK: - Properties
-    private var selectedTab: ProductHeaderTab = .level1
-    
     weak var delegate: ProductsListHeaderViewDelegate?
     
     // MARK: - Lifecycle
@@ -44,6 +46,7 @@ final class ProductsListHeaderView: UITableViewHeaderFooterView {
         setupUI()
     }
     
+    // MARK: - UI
     private func setupUI() {
         bottomLineView.backgroundColor = .black
         
@@ -61,23 +64,46 @@ final class ProductsListHeaderView: UITableViewHeaderFooterView {
         
         selectedTabView.backgroundColor = .black
         
-        moveView(to: selectedTab)
+        setupTabs()
+        
+        moveView(to: .level2)
+        moveView(to: .level1)
+    }
+    
+    private func setupTabs() {
+        selectedTab_width.constant = 0
+        
+        productsLevel1Button_width.constant = 0
+        productsLevel2Button_width.constant = 0
+        gradesButton_width.constant = 0
+        
+        let oneTab = UIScreen.main.bounds.width / 3
+        let halfTab = oneTab / 2
+        
+        let fullWidth = oneTab + (halfTab / 2)
+
+        productsLevel1Button_width.constant = fullWidth
+        productsLevel2Button_width.constant = fullWidth
+        gradesButton_width.constant = halfTab
     }
     
     private func moveView(to tab: ProductHeaderTab) {
         var tabWidth: CGFloat = 0
         var tabLeading: CGFloat = 0
         
-        switch tab {
-        case .level1:
-            tabWidth = productsLevel1Button.frame.width
+        if tab == .level1 {
             tabLeading = 0
-        case .level2:
+            tabWidth = productsLevel1Button.frame.width
+        }
+        
+        if tab == .level2 {
+            tabLeading = productsLevel1Button.frame.width
             tabWidth = productsLevel2Button.frame.width
-            tabLeading = productsLevel2Button.frame.width
-        case .grades:
+        }
+        
+        if tab == .grades {
+            tabLeading = productsLevel1Button.frame.width + productsLevel2Button.frame.width
             tabWidth = gradesButton.frame.width
-            tabLeading = productsLevel2Button.frame.width * 2
         }
         
         selectedTab_width.constant = tabWidth
@@ -88,22 +114,20 @@ final class ProductsListHeaderView: UITableViewHeaderFooterView {
         }
     }
     
+    // MARK: - Tab Handler
     @objc private func level1Tapped() {
-        print(#function)
         moveView(to: .level1)
         
         delegate?.select(tab: .level1)
     }
     
     @objc private func level2Tapped() {
-        print(#function)
         moveView(to: .level2)
         
         delegate?.select(tab: .level2)
     }
     
     @objc private func gradesTapped() {
-        print(#function)
         moveView(to: .grades)
         
         delegate?.select(tab: .grades)

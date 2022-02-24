@@ -11,8 +11,14 @@ final class ProductsListViewController: PTViewController {
 
     // MARK: - Outlets
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var tableView_top: NSLayoutConstraint!
+    
+    @IBOutlet private weak var loaderStackView: UIStackView!
+    @IBOutlet private weak var loaderLabel: UILabel!
+    @IBOutlet private weak var loaderSpinner: PTSpinner!
     
     // MARK: - Properties
+    private var fetchingInProgress = false
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -22,9 +28,23 @@ final class ProductsListViewController: PTViewController {
         fetchProducts()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fixRefreshControl()
+    }
+    
     // MARK: - Methdos
     private func setupUI() {
+        navigationController?.navigationBar.tintColor = .black
         navigationItem.title = .products
+        
+        // loader
+        loaderLabel.text = .fetchingData
+        loaderSpinner.set(style: .medium, color: .black)
+        loaderSpinner.off()
+        
+        showLoader(false)
         
         // tableView
         tableView.set(cell: ProductTableViewCell.self)
@@ -34,11 +54,47 @@ final class ProductsListViewController: PTViewController {
         tableView.dataSource = self
         tableView.estimatedRowHeight = 80
 
-        tableView.refreshControl = UIRefreshControl()
-        tableView.refreshControl?.tintColor = .systemBlue
-        tableView.refreshControl?.addTarget(self, action: #selector(tablePulled), for: .valueChanged)
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .black
+        refreshControl.addTarget(self, action: #selector(tablePulled), for: .valueChanged)
+        
+        tableView.refreshControl = refreshControl
         
         tableView.reloadData()
+    }
+    
+    private func showLoader(_ show: Bool = true) {
+        if show {
+            loaderStackView.show()
+            loaderSpinner.on()
+            
+            tableView_top.constant = 60
+        } else {
+            loaderStackView.hide()
+            loaderSpinner.off()
+            
+            tableView_top.constant = 0
+        }
+    }
+    
+    private func fixRefreshControl() {
+        if let refresh = tableView.refreshControl {
+            if refresh.isRefreshing {
+                main { [weak self] in
+                    guard let strongSelf = self else { return }
+                    
+                    strongSelf.tableView.refreshControl?.endRefreshing()
+                    strongSelf.showLoader()
+                }
+            }
+        }
+    }
+    
+    private func endRefreshControl() {
+        main { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.tableView.refreshControl?.endRefreshing()
+        }
     }
 }
 
@@ -84,24 +140,48 @@ extension ProductsListViewController: UITableViewDataSource, UITableViewDelegate
 // MARK: - Header Delegate
 extension ProductsListViewController: ProductsListHeaderViewDelegate {
     func select(tab: ProductHeaderTab) {
-        print(tab)
+        fetchProducts()
     }
 }
 
-
-
 // MARK: - Request
 extension ProductsListViewController {
-    private func fetchProducts() {
+    private func fetchProducts(fromRefreshControl: Bool = false) {
+        //@TODO check cache 5min before guard
+        print(#function, fetchingInProgress, "fromRefreshControl", fromRefreshControl)
         
+        guard !fetchingInProgress else { return }
+        
+        if fromRefreshControl {
+            showLoader(false)
+        } else {
+            endRefreshControl()
+            showLoader()
+        }
+        
+        fetchingInProgress = true
+        
+        delay(4) { [weak self] in
+            guard let strongSelf = self else { return }
+            
+            strongSelf.fetchingInProgress = false
+            
+            strongSelf.tableView.refreshControl?.endRefreshing()
+            strongSelf.showLoader(false)
+            
+            strongSelf.tableView.reloadData()
+        }
     }
     
     @objc private func tablePulled() {
-        print(#function)
-        
-        delay {
-            self.tableView.refreshControl?.endRefreshing()
+        //@TODO check cache 5min
+        guard !fetchingInProgress else {
+            
+            endRefreshControl()
+            return
         }
+        
+        fetchProducts(fromRefreshControl: true)
     }
 }
 

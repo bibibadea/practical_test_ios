@@ -10,7 +10,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProductsListViewController" customModule="PT" customModuleProvider="target">
             <connections>
+                <outlet property="loaderLabel" destination="v0A-rf-l93" id="rS0-5n-iSb"/>
+                <outlet property="loaderSpinner" destination="UQJ-7G-0U6" id="sba-YO-9V2"/>
+                <outlet property="loaderStackView" destination="mSH-Jp-bqH" id="K7q-Ch-X77"/>
                 <outlet property="tableView" destination="rNL-Z9-gQM" id="5Ip-e6-9Ua"/>
+                <outlet property="tableView_top" destination="acB-Ty-Wgn" id="Gor-ek-sYI"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,19 +24,50 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rNL-Z9-gQM">
-                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                    <rect key="frame" x="0.0" y="104" width="414" height="792"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mSH-Jp-bqH">
+                    <rect key="frame" x="133" y="59" width="148" height="30"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZJ-2l-JzF">
+                            <rect key="frame" x="0.0" y="0.0" width="120" height="30"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fetching Data..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v0A-rf-l93">
+                                    <rect key="frame" x="0.0" y="0.0" width="120" height="30"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="v0A-rf-l93" firstAttribute="leading" secondItem="hZJ-2l-JzF" secondAttribute="leading" id="AMD-j4-IK1"/>
+                                <constraint firstItem="v0A-rf-l93" firstAttribute="top" secondItem="hZJ-2l-JzF" secondAttribute="top" id="C0H-R5-g0c"/>
+                                <constraint firstAttribute="bottom" secondItem="v0A-rf-l93" secondAttribute="bottom" id="MRO-LR-gYt"/>
+                                <constraint firstAttribute="trailing" secondItem="v0A-rf-l93" secondAttribute="trailing" id="xha-Bm-zc2"/>
+                            </constraints>
+                        </view>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="UQJ-7G-0U6" customClass="PTSpinner" customModule="PT" customModuleProvider="target">
+                            <rect key="frame" x="128" y="0.0" width="20" height="30"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="ynL-Cp-Ebg"/>
+                    </constraints>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="rNL-Z9-gQM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="FLC-Dz-Qat"/>
-                <constraint firstItem="rNL-Z9-gQM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="acB-Ty-Wgn"/>
+                <constraint firstItem="rNL-Z9-gQM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="60" id="acB-Ty-Wgn"/>
+                <constraint firstItem="mSH-Jp-bqH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="15" id="gAl-Bn-pqB"/>
                 <constraint firstAttribute="bottom" secondItem="rNL-Z9-gQM" secondAttribute="bottom" id="imV-Im-f0c"/>
+                <constraint firstItem="mSH-Jp-bqH" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="lcD-or-Mhk"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rNL-Z9-gQM" secondAttribute="trailing" id="qhv-u6-pxF"/>
             </constraints>
-            <point key="canvasLocation" x="132" y="132"/>
+            <point key="canvasLocation" x="131.8840579710145" y="131.91964285714286"/>
         </view>
     </objects>
     <resources>

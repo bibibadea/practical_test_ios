@@ -18,15 +18,24 @@
                     <rect key="frame" x="0.0" y="44" width="513" height="261"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6e-1f-nN6">
-                            <rect key="frame" x="0.0" y="0.0" width="205" height="261"/>
+                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="261"/>
+                            <constraints>
+                                <constraint firstAttribute="width" id="aCm-Ac-9Pr"/>
+                            </constraints>
                             <state key="normal" title=" "/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dKA-bD-c11">
-                            <rect key="frame" x="205" y="0.0" width="205.5" height="261"/>
+                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="261"/>
+                            <constraints>
+                                <constraint firstAttribute="width" id="1yn-Rc-vUQ"/>
+                            </constraints>
                             <state key="normal" title=" "/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="osv-WU-d0F">
-                            <rect key="frame" x="410.5" y="0.0" width="102.5" height="261"/>
+                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="261"/>
+                            <constraints>
+                                <constraint firstAttribute="width" id="YfP-O6-yu1"/>
+                            </constraints>
                             <state key="normal" title=" "/>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vmD-3p-9ZF">
@@ -52,10 +61,7 @@
                         <constraint firstAttribute="bottom" secondItem="nFr-eM-yMp" secondAttribute="bottom" id="3du-Ub-uPs"/>
                         <constraint firstItem="S6e-1f-nN6" firstAttribute="top" secondItem="eo2-1z-zZd" secondAttribute="top" id="7Dt-aj-Oc9"/>
                         <constraint firstItem="osv-WU-d0F" firstAttribute="top" secondItem="eo2-1z-zZd" secondAttribute="top" id="7lv-Kl-Cda"/>
-                        <constraint firstItem="osv-WU-d0F" firstAttribute="width" secondItem="dKA-bD-c11" secondAttribute="width" multiplier="0.5" id="9AM-Ge-Ylr"/>
-                        <constraint firstItem="dKA-bD-c11" firstAttribute="width" secondItem="S6e-1f-nN6" secondAttribute="width" id="BHp-94-ijv"/>
                         <constraint firstAttribute="bottom" secondItem="vmD-3p-9ZF" secondAttribute="bottom" id="CJx-Af-Fnn"/>
-                        <constraint firstAttribute="trailing" secondItem="osv-WU-d0F" secondAttribute="trailing" id="OET-s8-GRv"/>
                         <constraint firstItem="dKA-bD-c11" firstAttribute="height" secondItem="S6e-1f-nN6" secondAttribute="height" id="P59-FZ-cvS"/>
                         <constraint firstAttribute="trailing" secondItem="nFr-eM-yMp" secondAttribute="trailing" id="PJ4-ha-9bl"/>
                         <constraint firstItem="osv-WU-d0F" firstAttribute="height" secondItem="dKA-bD-c11" secondAttribute="height" id="PKY-6Q-hCP"/>
@@ -69,25 +75,28 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="eo2-1z-zZd" secondAttribute="bottom" id="2ia-HX-jQU"/>
                 <constraint firstItem="eo2-1z-zZd" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="7Bh-tL-haE"/>
                 <constraint firstAttribute="trailing" secondItem="eo2-1z-zZd" secondAttribute="trailing" id="lrw-zw-bAi"/>
-                <constraint firstItem="eo2-1z-zZd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="mR6-ka-fjK"/>
+                <constraint firstItem="eo2-1z-zZd" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="mR6-ka-fjK"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="bottomLineView" destination="nFr-eM-yMp" id="9Ij-sm-4BZ"/>
                 <outlet property="boxView" destination="eo2-1z-zZd" id="ucg-C9-PJ2"/>
                 <outlet property="gradesButton" destination="osv-WU-d0F" id="muC-Gf-gJB"/>
+                <outlet property="gradesButton_width" destination="YfP-O6-yu1" id="pda-5i-QAw"/>
                 <outlet property="productsLevel1Button" destination="S6e-1f-nN6" id="8XR-Zy-n5Q"/>
+                <outlet property="productsLevel1Button_width" destination="aCm-Ac-9Pr" id="fUc-8Q-fBR"/>
                 <outlet property="productsLevel2Button" destination="dKA-bD-c11" id="VZc-Ry-zKz"/>
+                <outlet property="productsLevel2Button_width" destination="1yn-Rc-vUQ" id="vZB-Wq-hiu"/>
                 <outlet property="selectedTabView" destination="vmD-3p-9ZF" id="5P0-Ie-h9T"/>
                 <outlet property="selectedTab_leading" destination="Xc0-aJ-hzk" id="XP4-af-RYC"/>
                 <outlet property="selectedTab_width" destination="MqO-x9-rCu" id="8Y8-bB-wA7"/>
             </connections>
-            <point key="canvasLocation" x="-602.17391304347825" y="-55.245535714285715"/>
+            <point key="canvasLocation" x="-370" y="-64"/>
         </view>
     </objects>
     <resources>

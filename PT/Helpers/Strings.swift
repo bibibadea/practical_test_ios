@@ -20,4 +20,6 @@ extension String {
     static let alias = "Alias"
     static let releaseDate = "Release date"
     static let clients = "Clients"
+    
+    static let fetchingData = "Fetching Data..."
 }
