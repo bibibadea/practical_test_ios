@@ -11,6 +11,10 @@ final class ProductsListDataSource: NSObject {
     
     // MARK: - Properties
     private var products: [Product] = []
+    private var grades: [Grade] = []
+    
+    private var isGrade = false
+    
     weak var outputProtocol: ProductsListOutputProtocol?
     
     // MARK: - Init
@@ -22,18 +26,23 @@ final class ProductsListDataSource: NSObject {
 // MARK: - TableView
 extension ProductsListDataSource: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        products.count
+        isGrade ? grades.count : products.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(withCell: ProductTableViewCell.self, at: indexPath)
         
-        cell.set(product: products[indexPath.row], indexPath: indexPath)
+        if isGrade {
+            cell.set(grade: grades[indexPath.row], indexPath: indexPath)
+        } else {
+            cell.set(product: products[indexPath.row], indexPath: indexPath)
+        }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard !isGrade else { return }
         outputProtocol?.selectProduct(product: products[indexPath.row])
     }
     
@@ -65,5 +74,13 @@ extension ProductsListDataSource: ProductsListHeaderViewDelegate {
 extension ProductsListDataSource: ProductsListInputProtocol {
     func set(products: [Product]?) {
         self.products = products ?? []
+        
+        isGrade = false
+    }
+    
+    func set(grades: [Grade]?) {
+        self.grades = grades ?? []
+        
+        isGrade = true
     }
 }

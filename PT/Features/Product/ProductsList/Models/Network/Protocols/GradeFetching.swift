@@ -8,7 +8,7 @@
 import Foundation
 
 protocol GradeFetching: AnyObject {
-    var grade: Grade { set get }
+    var grades: [Grade] { set get }
 
-    func fetchGrade()
+    func fetchGrade(completion: @escaping NetworkResultClosure)
 }

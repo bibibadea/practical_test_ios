@@ -43,6 +43,9 @@
 		8B09262627C82EDA006A6488 /* ProductsListOutputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09262527C82EDA006A6488 /* ProductsListOutputProtocol.swift */; };
 		8B09262B27C82EF2006A6488 /* ProductsListViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09262A27C82EF2006A6488 /* ProductsListViewControllerProtocol.swift */; };
 		8B09263327C82F0F006A6488 /* ProductsListInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09263227C82F0F006A6488 /* ProductsListInputProtocol.swift */; };
+		8B09263827C8E903006A6488 /* GradeFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09263727C8E903006A6488 /* GradeFetcher.swift */; };
+		8B09263D27C8F89B006A6488 /* GradeRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09263C27C8F89B006A6488 /* GradeRequestData.swift */; };
+		8B09264227CA96C0006A6488 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09264127CA96BF006A6488 /* UIApplication.swift */; };
 		8BA232CF27C611100013F559 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA232CE27C611100013F559 /* AppDelegate.swift */; };
 		8BA232D827C611190013F559 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BA232D727C611190013F559 /* Assets.xcassets */; };
 		8BA232DB27C611190013F559 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BA232D927C611190013F559 /* LaunchScreen.storyboard */; };
@@ -104,6 +107,9 @@
 		8B09262527C82EDA006A6488 /* ProductsListOutputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsListOutputProtocol.swift; sourceTree = "<group>"; };
 		8B09262A27C82EF2006A6488 /* ProductsListViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsListViewControllerProtocol.swift; sourceTree = "<group>"; };
 		8B09263227C82F0F006A6488 /* ProductsListInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsListInputProtocol.swift; sourceTree = "<group>"; };
+		8B09263727C8E903006A6488 /* GradeFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeFetcher.swift; sourceTree = "<group>"; };
+		8B09263C27C8F89B006A6488 /* GradeRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeRequestData.swift; sourceTree = "<group>"; };
+		8B09264127CA96BF006A6488 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		8BA232CB27C611100013F559 /* PT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BA232CE27C611100013F559 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BA232D727C611190013F559 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -192,6 +198,7 @@
 			children = (
 				8B0924E127C61E9F006A6488 /* UIView.swift */,
 				8B09254627C6EED0006A6488 /* UITableView.swift */,
+				8B09264127CA96BF006A6488 /* UIApplication.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -323,6 +330,8 @@
 				8B0925B727C80C8D006A6488 /* Protocols */,
 				8B0925CE27C80DF8006A6488 /* ProductsLevel1Fetcher.swift */,
 				8B0925DC27C811FF006A6488 /* ProductsLevel2Fetcher.swift */,
+				8B09263727C8E903006A6488 /* GradeFetcher.swift */,
+				8B09263C27C8F89B006A6488 /* GradeRequestData.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -537,17 +546,20 @@
 				8B09252727C6E76A006A6488 /* Strings.swift in Sources */,
 				8B09250F27C6CDDC006A6488 /* ProductDetailsViewController.swift in Sources */,
 				8B09257A27C7F903006A6488 /* Endpoint.swift in Sources */,
+				8B09264227CA96C0006A6488 /* UIApplication.swift in Sources */,
 				8B09260C27C82A58006A6488 /* ProductsListModelController.swift in Sources */,
 				8B09258427C7FA94006A6488 /* NetworkRequest.swift in Sources */,
 				8B0924F527C6219C006A6488 /* PTViewController.swift in Sources */,
 				8B0924CE27C61DC2006A6488 /* InitialViewController.swift in Sources */,
 				8B09263327C82F0F006A6488 /* ProductsListInputProtocol.swift in Sources */,
+				8B09263D27C8F89B006A6488 /* GradeRequestData.swift in Sources */,
 				8B0925B227C80C43006A6488 /* GradeFetching.swift in Sources */,
 				8B09254F27C6EFCA006A6488 /* ProductTableViewCell.swift in Sources */,
 				8B09261E27C82E01006A6488 /* ProductsListDataSource.swift in Sources */,
 				8B09257F27C7F952006A6488 /* DataRequest.swift in Sources */,
 				8B09250027C6CD6B006A6488 /* ProductsListViewController.swift in Sources */,
 				8B09259427C8072D006A6488 /* Product.swift in Sources */,
+				8B09263827C8E903006A6488 /* GradeFetcher.swift in Sources */,
 				8B09258E27C7FF80006A6488 /* Network+Products.swift in Sources */,
 				8B09259E27C80873006A6488 /* Grade.swift in Sources */,
 				8B09259927C807CE006A6488 /* Network+Grades.swift in Sources */,

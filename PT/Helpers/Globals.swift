@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 typealias Closure = () -> ()
 
@@ -24,7 +25,6 @@ func main(_ completion: @escaping Closure) {
 }
 
 // MARK: - Class Name
-
 protocol Nameable: AnyObject {
     static var name: String { get }
 }
@@ -32,6 +32,29 @@ protocol Nameable: AnyObject {
 extension Nameable {
     static var name: String {
         return String(describing: self)
+    }
+}
+
+// MARK: - Present Alert on Top ViewController
+func alert(_ error: Error?, completion: @escaping Closure) {
+    main {
+        let message = error?.localizedDescription ?? "-"
+        
+        let alert = UIAlertController(title: .error,
+                                      message: message,
+                                      preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: .ok,
+                                      style: .default,
+                                      handler: nil))
+        
+        if let alertController = topController() as? UIAlertController {
+            alertController.present(alert, animated: false, completion: completion)
+        } else if let presenting = topController()?.presentingViewController as? UINavigationController {
+            presenting.topViewController?.present(alert, animated: true, completion: nil)
+        } else {
+            topController()?.present(alert, animated: true, completion: nil)
+        }
     }
 }
 

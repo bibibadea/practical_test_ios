@@ -21,10 +21,13 @@ class NetworkRequest: NetworkRequestProtocol {
             }
             
             //
+            var queryItems: [URLQueryItem] = []
             request.queryItems.forEach {
                 let item = URLQueryItem(name: $0.key, value: $0.value)
-                urlComponent.queryItems?.append(item)
+                queryItems.append(item)
             }
+            
+            urlComponent.queryItems = queryItems
             
             //
             guard let url = urlComponent.url else {

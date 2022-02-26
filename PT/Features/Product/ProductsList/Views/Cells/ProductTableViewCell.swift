@@ -16,6 +16,9 @@ final class ProductTableViewCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
     
     // MARK: - Properties
+    private var isGrade = false
+    
+    private var grade: Grade?
     private var product: Product?
     private var indexPath: IndexPath?
     
@@ -42,12 +45,19 @@ final class ProductTableViewCell: UITableViewCell {
     
     private func updateUI() {
         guard let indexPath = indexPath else { return }
-        guard let product = product else { return }
+        
+        if isGrade {
+            guard let grade = grade else { return }
+            
+            titleLabel.text = grade.name + " - " + "\(grade.grade)"
+        } else {
+            guard let product = product else { return }
+            
+            titleLabel.text = product.name
+        }
         
         // set top space
         boxView_top.constant = indexPath.row == 0 ? 20 : 0
-        
-        titleLabel.text = product.name
     }
     
     // MARK: - Set Cell
@@ -55,6 +65,15 @@ final class ProductTableViewCell: UITableViewCell {
         self.product = product
         self.indexPath = indexPath
         
+        isGrade = false
+        updateUI()
+    }
+    
+    func set(grade: Grade?, indexPath: IndexPath?) {
+        self.grade = grade
+        self.indexPath = indexPath
+        
+        isGrade = true
         updateUI()
     }
 }

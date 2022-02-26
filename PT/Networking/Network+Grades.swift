@@ -7,14 +7,13 @@
 
 import Foundation
 
-final class GradesRequest: NetworkRequest {
+final class GradeRequest: DataRequest {
     
     var urlQueryParams: UrlParams = [:]
     
     var url: String {
         "http://stage.cp-plan.net/dsa/getGrade.php"
     }
-    //getGrade.php?productId=1&clientCountLevel1=4&clientCountLevel2=0
     
     var method: HTTPMethod {
         .get
@@ -25,10 +24,10 @@ final class GradesRequest: NetworkRequest {
     }
     
     //
-    func decode(_ data: Data) throws -> [Grade] {
+    func decode(_ data: Data) throws -> Grade {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .useDefaultKeys
         
-        return try decoder.decode([Grade].self, from: data)
+        return try decoder.decode(Grade.self, from: data)
     }
 }

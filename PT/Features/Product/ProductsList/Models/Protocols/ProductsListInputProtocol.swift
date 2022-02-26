@@ -9,4 +9,5 @@ import Foundation
 
 protocol ProductsListInputProtocol: AnyObject {
     func set(products: [Product]?)
+    func set(grades: [Grade]?)
 }

@@ -18,3 +18,9 @@ struct Product: Decodable {
     var releaseDate: String
     var clients: [String]
 }
+
+extension Product: Equatable {
+    static func ==(lhs: Product, rhs: Product) -> Bool {
+        lhs.id == rhs.id
+    }
+}

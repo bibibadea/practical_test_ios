@@ -13,6 +13,9 @@ struct Grade: Decodable {
     var countLevel2: String
     var grade: Int
     
+    var name: String = ""
+    //var intID: Int = 0
+    
     private enum CodingKeys: String, CodingKey {
         case id = "productId"
         case countLevel1 = "clientCountLevel1"

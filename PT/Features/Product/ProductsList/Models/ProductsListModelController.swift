@@ -13,6 +13,7 @@ final class ProductsListModelController {
     var coordinator: ProductCoordinator?
     
     private var fetchingAllRequestsInProgress = false
+    private var fetchingGradesInProgress = false
     
     private var fetchingProductsInProgress = false
     private var fetchingLevel1InProgress = false
@@ -20,6 +21,7 @@ final class ProductsListModelController {
     
     private var level1ProductFetcher: ProductFetching?
     private var level2ProductFetcher: ProductFetching?
+    private var gradeFetcher: GradeFetcher?
     
     private var selectedTab: ProductHeaderTab = .level1
     
@@ -32,8 +34,8 @@ final class ProductsListModelController {
     init() {
         level1ProductFetcher = ProductsLevel1Fetcher(networkRequest: NetworkRequest())
         level2ProductFetcher = ProductsLevel2Fetcher(networkRequest: NetworkRequest())
+        gradeFetcher = GradeFetcher(networkRequest: NetworkRequest())
         
-        //fetchAllRequests()
         fetchProducts()
     }
     
@@ -48,7 +50,7 @@ final class ProductsListModelController {
         }
         
         if selectedTab == .grades {
-            
+            inputProtocol?.set(grades: gradeFetcher?.grades)
         }
         
         delegate?.endRefreshControl()
@@ -59,7 +61,7 @@ final class ProductsListModelController {
         print("-----------------")
         print("level 1 products:", level1ProductFetcher?.products.count ?? 0)
         print("level 2 products:", level2ProductFetcher?.products.count ?? 0)
-        print("grades:", 0)
+        print("grades:", gradeFetcher?.grades.count ?? 0)
     }
 }
 
@@ -76,23 +78,25 @@ extension ProductsListModelController {
         fetchingProductsInProgress = true
         
         // Fetch Products from Level1
-        fetchLevel1Products(withDispatch: true)
+        fetchLevel1Products(withDispatch: false)
         
         // Fetch Products from Level2
-        fetchLevel2Products(withDispatch: true)
+        fetchLevel2Products(withDispatch: false)
         
         //
-        dispatchGroup.notify(queue: .main) { [weak self] in
-            
-            guard let strongSelf = self else { return }
-            
-            strongSelf.fetchingProductsInProgress = false
-            
-            strongSelf.delegate?.endRefreshControl()
-            strongSelf.delegate?.showLoader(false)
-            
-            strongSelf.updateData()
-        }
+        /*
+         dispatchGroup.notify(queue: .main) { [weak self] in
+         
+         guard let strongSelf = self else { return }
+         
+         strongSelf.fetchingProductsInProgress = false
+         
+         strongSelf.delegate?.endRefreshControl()
+         strongSelf.delegate?.showLoader(false)
+         
+         strongSelf.updateData()
+         }
+         */
     }
     
     // MARK: - Fetch Level 1 Products
@@ -161,49 +165,154 @@ extension ProductsListModelController {
         })
     }
     
-    // MARK: - Fetch Data
-    private func fetchData() {
-        print(#function, selectedTab)
-        delegate?.showLoader(true)
+    // MARK: - Fetch Grades
+    private func fetchGrades() {
+        print(#function, fetchingGradesInProgress)
         
-        if selectedTab == .level1 {
-            fetchLevel1Products(withDispatch: false)
-        }
+        guard !fetchingGradesInProgress else { return }
         
-        if selectedTab == .level2 {
-            fetchLevel2Products(withDispatch: false)
-        }
-        
-        if selectedTab == .grades {
-            
-        }
-    }
-    
-    private func fetchAllRequests() {
-        print(#function, fetchingAllRequestsInProgress)
-        guard !fetchingAllRequestsInProgress else { return }
-        
-        fetchingAllRequestsInProgress = true
+        fetchingGradesInProgress = true
         
         // Fetch Products from Level1
         fetchLevel1Products(withDispatch: true)
         
         // Fetch Products from Level2
         fetchLevel2Products(withDispatch: true)
-
+        
         //
         dispatchGroup.notify(queue: .main) { [weak self] in
             
             guard let strongSelf = self else { return }
-            
-            strongSelf.fetchingAllRequestsInProgress = false
-            
-            strongSelf.delegate?.endRefreshControl()
-            strongSelf.delegate?.showLoader(false)
-            
-            strongSelf.updateData()
+            strongSelf.prepareGradesRequest()
         }
     }
+    
+    private func prepareGradesRequest() {
+        delegate?.showLoader(true)
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            
+            guard let strongSelf = self else { return }
+            
+            var errors: [Error?] = []
+            
+            let level1Products: [Product] = strongSelf.level1ProductFetcher?.products ?? []
+            let level2Products: [Product] = strongSelf.level2ProductFetcher?.products ?? []
+            
+            var requestData: [GradeRequestData] = []
+            var productsForRequest: [Product] = []
+            
+            level1Products.forEach { level1 in
+                level2Products.forEach { level2 in
+                    if level1 == level2 {
+                        productsForRequest.append(level1)
+                        requestData.append(GradeRequestData(productID: level1.id,
+                                                            level1Count: level1.clients.count,
+                                                            level2Count: level2.clients.count))
+                    }
+                }
+            }
+            
+            strongSelf.gradeFetcher?.grades.removeAll()
+            let group = DispatchGroup()
+            
+            for data in requestData {
+                group.enter()
+                strongSelf.gradeFetcher?.urlParams = [
+                    "productId" : "\(data.productID)",
+                    "clientCountLevel1" : "\(data.level1Count)",
+                    "clientCountLevel2" : "\(data.level2Count)",
+                ]
+                
+                strongSelf.gradeFetcher?.fetchGrade(completion: { success, error in
+                    if success {
+                        //
+                    } else {  
+                        errors.append(error)
+                    }
+                    group.leave()
+                })
+            }
+            
+            // all grades requests are done
+            group.notify(queue: .main) {
+                DispatchQueue.global(qos: .background).async {
+                    
+                    if errors.count > 0 {
+                        //@TODO fix showing multiple alerts
+                    }
+                    
+                    // add product name
+                    for product in productsForRequest {
+                        if let fetcher = strongSelf.gradeFetcher {
+                            for (index, _) in fetcher.grades.enumerated() {
+                                if fetcher.grades[index].id == "\(product.id)" {
+                                    fetcher.grades[index].name = product.name
+                                    //fetcher.grades[index].intID = Int(fetcher.grades[index].id) ?? 0
+                                }
+                            }
+                        }
+                    }
+                    
+                    // sort grades
+                    // strongSelf.gradeFetcher?.grades.sort { $0.intID < $1.intID }
+                    strongSelf.gradeFetcher?.grades.sort { (Int($0.id) ?? 0) < (Int($1.id) ?? 0) }
+                    
+                    main {
+                        strongSelf.fetchingGradesInProgress = false
+                        
+                        strongSelf.delegate?.endRefreshControl()
+                        strongSelf.delegate?.showLoader(false)
+                        
+                        strongSelf.updateData()
+                    }
+                }
+        }
+    }
+}
+
+// MARK: - Fetch Data
+private func fetchData() {
+    print(#function, selectedTab)
+    delegate?.showLoader(true)
+    
+    if selectedTab == .level1 {
+        fetchLevel1Products(withDispatch: false)
+    }
+    
+    if selectedTab == .level2 {
+        fetchLevel2Products(withDispatch: false)
+    }
+    
+    if selectedTab == .grades {
+        fetchGrades()
+    }
+}
+
+private func fetchAllRequests() {
+    print(#function, fetchingAllRequestsInProgress)
+    guard !fetchingAllRequestsInProgress else { return }
+    
+    fetchingAllRequestsInProgress = true
+    
+    // Fetch Products from Level1
+    fetchLevel1Products(withDispatch: true)
+    
+    // Fetch Products from Level2
+    fetchLevel2Products(withDispatch: true)
+    
+    //
+    dispatchGroup.notify(queue: .main) { [weak self] in
+        
+        guard let strongSelf = self else { return }
+        
+        strongSelf.fetchingAllRequestsInProgress = false
+        
+        strongSelf.delegate?.endRefreshControl()
+        strongSelf.delegate?.showLoader(false)
+        
+        strongSelf.updateData()
+    }
+}
 }
 
 // MARK: - Pull To Refresh Protocol

@@ -42,7 +42,11 @@ extension PTViewController {
                                       style: .default,
                                       handler: nil))
         
-        present(alert, animated: true, completion: nil)
+        if let presented = presentedViewController {
+            presented.present(alert, animated: true, completion: nil)
+        } else {
+            present(alert, animated: true, completion: nil)
+        }
     }
     
     func ok(_ message: String) {
@@ -54,6 +58,10 @@ extension PTViewController {
                                       style: .default,
                                       handler: nil))
         
-        present(alert, animated: true, completion: nil)
+        if let presented = presentedViewController {
+            presented.present(alert, animated: true, completion: nil)
+        } else {
+            present(alert, animated: true, completion: nil)
+        }
     }
 }
