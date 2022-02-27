@@ -25,6 +25,8 @@ final class ProductsListViewController: PTViewController {
     private var modelController: ProductsListModelController?
     private var modelDataSource: ProductsListDataSource?
     
+    var dataManager: DataManager?
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +85,8 @@ final class ProductsListViewController: PTViewController {
         modelController = ProductsListModelController()
         modelController?.delegate = self
         modelController?.coordinator = coordinator
+        modelController?.dataManager = dataManager
+        
         delegate = modelController
         
         modelDataSource = ProductsListDataSource()

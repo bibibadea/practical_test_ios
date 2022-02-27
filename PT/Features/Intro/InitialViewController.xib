@@ -39,7 +39,7 @@
                 <constraint firstItem="pat-pg-S7t" firstAttribute="top" secondItem="1BR-kg-ICr" secondAttribute="bottom" id="P7f-Oc-rje"/>
                 <constraint firstItem="1BR-kg-ICr" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Rcj-2z-8ak"/>
             </constraints>
-            <point key="canvasLocation" x="-258" y="132"/>
+            <point key="canvasLocation" x="-259.4202898550725" y="131.91964285714286"/>
         </view>
     </objects>
     <resources>

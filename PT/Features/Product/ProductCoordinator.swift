@@ -11,6 +11,7 @@ final class ProductCoordinator: Coordinatable {
     
     // MARK: - Properties
     var navigationController: UINavigationController
+    var dataManager: DataManager?
     
     // MARK: - Init
     init(navigationController: UINavigationController) {
@@ -20,6 +21,7 @@ final class ProductCoordinator: Coordinatable {
     // MARK: - Start
     func start() {
         let vc = ProductsListViewController()
+        vc.dataManager = dataManager
         vc.coordinator = self
         
         navigationController.setViewControllers([vc], animated: true)

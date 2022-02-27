@@ -12,6 +12,7 @@ final class AppCoordinator: Coordinatable {
     // MARK: - Properties
     var window: UIWindow?
     var navigationController: UINavigationController
+    var dataManager: DataManager?
     
     // MARK: - Init
     init(navigationController: UINavigationController) {
@@ -30,6 +31,7 @@ final class AppCoordinator: Coordinatable {
     // MARK: - Product Module
     func openProductModule() {
         let coordinator = ProductCoordinator(navigationController: navigationController)
+        coordinator.dataManager = dataManager
         coordinator.start()
         
         window?.rootViewController = coordinator.navigationController

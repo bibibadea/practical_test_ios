@@ -50,7 +50,9 @@ func alert(_ error: Error?, completion: @escaping Closure) {
                                         completion()
                                       }))
         
-        topController()?.present(alert, animated: true, completion: nil)
+        topController()?.present(alert, animated: true, completion: {
+            completion()
+        })
     }
 }
 

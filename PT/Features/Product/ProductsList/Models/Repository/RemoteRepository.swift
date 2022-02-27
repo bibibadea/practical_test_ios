@@ -1,30 +1,80 @@
 //
-//  ProductListNetworkService.swift
+//  RemoteRepository.swift
 //  PT
 //
-//  Created by iOS Developer on 2/26/22.
+//  Created by iOS Developer on 2/27/22.
 //
 
 import Foundation
 import UIKit
 
-final class ProductListNetworkService {
+final class RemoteRepository: Repository {
     
     // MARK: - Properties
-    var level1ProductFetcher: ProductFetching?
-    var level2ProductFetcher: ProductFetching?
+    private var level1Products: [Product] = []
+    private var level2Products: [Product] = []
+    private var grades: [Grade] = []
+    
+    var level1fetcher: ProductsLevel1Fetcher?
+    var level2fetcher: ProductsLevel2Fetcher?
     var gradeFetcher: GradeFetcher?
     
     // MARK: - Init
     init() {
-        level1ProductFetcher = ProductsLevel1Fetcher(networkRequest: NetworkRequest())
-        level2ProductFetcher = ProductsLevel2Fetcher(networkRequest: NetworkRequest())
-        
+        level1fetcher = ProductsLevel1Fetcher(networkRequest: NetworkRequest())
+        level2fetcher = ProductsLevel2Fetcher(networkRequest: NetworkRequest())
         gradeFetcher = GradeFetcher(networkRequest: NetworkRequest())
     }
     
+    // MARK: - Methods
+    func fetchLevel1Products(completion: @escaping ProductsClosure) {
+        if let fetcher = level1fetcher {
+            fetcher.fetchProducts { success, error in
+                if success {
+                    completion(fetcher.products)
+                } else {
+                    completion([])
+                }
+            }
+        } else {
+            completion([])
+        }
+    }
+    
+    func fetchLevel2Products(completion: @escaping ProductsClosure) {
+        if let fetcher = level2fetcher {
+            fetcher.fetchProducts { success, error in
+                if success {
+                    completion(fetcher.products)
+                } else {
+                    completion([])
+                }
+            }
+        } else {
+            completion([])
+        }
+    }
+    
+    func fetchGrades(completion: @escaping GradesClosure) {
+        if let fetcher = gradeFetcher {
+            fetcher.fetchGrade { success, error in
+                if success {
+                    completion(fetcher.grades)
+                } else {
+                    completion([])
+                }
+            }
+        } else {
+            completion([])
+        }
+    }
+}
+
+// MARK: - Requests
+extension RemoteRepository {
     // MARK: - Fetch Data
-    func fetchData(completion: @escaping Closure) {
+    func fetchData(completion: @escaping ProductsAndGradesClosure) {
+        
         let dispatchGroup = DispatchGroup()
         
         // Fetch Products from Level1
@@ -35,23 +85,7 @@ final class ProductListNetworkService {
         
         //
         dispatchGroup.notify(queue: .main) { [weak self] in
-            self?.fetchGrades(completion)
-        }
-    }
-    
-    // MARK: - Fetch Level 1&2 Products
-    func fetchProducts(completion: @escaping Closure) {
-        let dispatchGroup = DispatchGroup()
-        
-        // Fetch Products from Level1
-        fetchLevel1Products(group: dispatchGroup) { _, _ in }
-        
-        // Fetch Products from Level2
-        fetchLevel2Products(group: dispatchGroup) { _, _ in }
-        
-        //
-        dispatchGroup.notify(queue: .main) {
-            completion()
+            self?.fetchGrades(completion: completion)
         }
     }
     
@@ -59,7 +93,7 @@ final class ProductListNetworkService {
     func fetchLevel1Products(group: DispatchGroup?, completion: @escaping NetworkResultClosure) {
         group?.enter()
         
-        level1ProductFetcher?.fetchProducts(completion: { success, error in
+        level1fetcher?.fetchProducts(completion: { success, error in
             main {
                 if success {
                     if group == nil {
@@ -78,7 +112,7 @@ final class ProductListNetworkService {
     func fetchLevel2Products(group: DispatchGroup?, completion: @escaping NetworkResultClosure) {
         group?.enter()
         
-        level2ProductFetcher?.fetchProducts(completion: { success, error in
+        level2fetcher?.fetchProducts(completion: { success, error in
             main {
                 if success {
                     if group == nil {
@@ -94,7 +128,7 @@ final class ProductListNetworkService {
     }
     
     // MARK: - Fetch Grades
-    private func fetchGrades(_ completion: @escaping Closure) {
+    private func fetchGrades(completion: @escaping ProductsAndGradesClosure) {
         let queue = DispatchQueue.global(qos: .background)
         
         queue.async { [weak self] in
@@ -104,8 +138,8 @@ final class ProductListNetworkService {
             var productsForRequest: [Product] = []
             var requestData: [GradeRequestData] = []
             
-            let level1Products: [Product] = strongSelf.level1ProductFetcher?.products ?? []
-            let level2Products: [Product] = strongSelf.level2ProductFetcher?.products ?? []
+            let level1Products: [Product] = strongSelf.level1fetcher?.products ?? []
+            let level2Products: [Product] = strongSelf.level2fetcher?.products ?? []
             
             level1Products.forEach { level1 in
                 level2Products.forEach { level2 in
@@ -125,7 +159,7 @@ final class ProductListNetworkService {
             for data in requestData {
                 dispatchGroup.enter()
                 strongSelf.gradeFetcher?.urlParams = [
-                    "productIdxxxxx" : "\(data.productID)",
+                    "productId" : "\(data.productID)",
                     "clientCountLevel1" : "\(data.level1Count)",
                     "clientCountLevel2" : "\(data.level2Count)",
                 ]
@@ -179,11 +213,10 @@ final class ProductListNetworkService {
                     strongSelf.gradeFetcher?.grades.sort { (Int($0.id) ?? 0) < (Int($1.id) ?? 0) }
                     
                     main {
-                        completion()
+                        completion(strongSelf.level1fetcher?.products ?? [], strongSelf.level2fetcher?.products ?? [], strongSelf.gradeFetcher?.grades ?? [])
                     }
                 }
             }
         }//queue
     }
 }
-

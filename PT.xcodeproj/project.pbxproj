@@ -47,6 +47,11 @@
 		8B09263D27C8F89B006A6488 /* GradeRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09263C27C8F89B006A6488 /* GradeRequestData.swift */; };
 		8B09264227CA96C0006A6488 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09264127CA96BF006A6488 /* UIApplication.swift */; };
 		8B09264727CADA08006A6488 /* ProductListNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09264627CADA07006A6488 /* ProductListNetworkService.swift */; };
+		8B09264D27CBC4D7006A6488 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09264C27CBC4D6006A6488 /* Repository.swift */; };
+		8B09266527CC0DE3006A6488 /* LocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09266427CC0DE3006A6488 /* LocalRepository.swift */; };
+		8B09266A27CC0DFC006A6488 /* RemoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09266927CC0DFC006A6488 /* RemoteRepository.swift */; };
+		8B09266F27CC0ECA006A6488 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09266E27CC0ECA006A6488 /* DataManager.swift */; };
+		8B09267427CC304A006A6488 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09267327CC304A006A6488 /* Keys.swift */; };
 		8BA232CF27C611100013F559 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA232CE27C611100013F559 /* AppDelegate.swift */; };
 		8BA232D827C611190013F559 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BA232D727C611190013F559 /* Assets.xcassets */; };
 		8BA232DB27C611190013F559 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BA232D927C611190013F559 /* LaunchScreen.storyboard */; };
@@ -112,6 +117,11 @@
 		8B09263C27C8F89B006A6488 /* GradeRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeRequestData.swift; sourceTree = "<group>"; };
 		8B09264127CA96BF006A6488 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		8B09264627CADA07006A6488 /* ProductListNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListNetworkService.swift; sourceTree = "<group>"; };
+		8B09264C27CBC4D6006A6488 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		8B09266427CC0DE3006A6488 /* LocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRepository.swift; sourceTree = "<group>"; };
+		8B09266927CC0DFC006A6488 /* RemoteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteRepository.swift; sourceTree = "<group>"; };
+		8B09266E27CC0ECA006A6488 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		8B09267327CC304A006A6488 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		8BA232CB27C611100013F559 /* PT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BA232CE27C611100013F559 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BA232D727C611190013F559 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -189,6 +199,7 @@
 				8B0924F427C6219C006A6488 /* PTViewController.swift */,
 				8B0924E627C61F11006A6488 /* Globals.swift */,
 				8B09252627C6E76A006A6488 /* Strings.swift */,
+				8B09267327CC304A006A6488 /* Keys.swift */,
 				8B09251727C6CF11006A6488 /* Views */,
 				8B0924C227C61D1D006A6488 /* Extensions */,
 			);
@@ -300,6 +311,7 @@
 		8B0925A327C80B1B006A6488 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8B09264B27CBC4BD006A6488 /* Repository */,
 				8B0925B627C80C83006A6488 /* Network */,
 				8B0925A427C80B1F006A6488 /* Protocols */,
 				8B09260B27C82A58006A6488 /* ProductsListModelController.swift */,
@@ -355,6 +367,17 @@
 				8B0925E327C820F2006A6488 /* Coordinatable.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		8B09264B27CBC4BD006A6488 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				8B09264C27CBC4D6006A6488 /* Repository.swift */,
+				8B09266427CC0DE3006A6488 /* LocalRepository.swift */,
+				8B09266927CC0DFC006A6488 /* RemoteRepository.swift */,
+				8B09266E27CC0ECA006A6488 /* DataManager.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		8BA232C227C611100013F559 = {
@@ -542,6 +565,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B0925CF27C80DF8006A6488 /* ProductsLevel1Fetcher.swift in Sources */,
+				8B09266F27CC0ECA006A6488 /* DataManager.swift in Sources */,
 				8B0925A727C80B8D006A6488 /* ProductFetching.swift in Sources */,
 				8B09258927C7FD0D006A6488 /* Error.swift in Sources */,
 				8B09251E27C6CF8B006A6488 /* PTSpinner.swift in Sources */,
@@ -549,12 +573,16 @@
 				8B09252727C6E76A006A6488 /* Strings.swift in Sources */,
 				8B09250F27C6CDDC006A6488 /* ProductDetailsViewController.swift in Sources */,
 				8B09257A27C7F903006A6488 /* Endpoint.swift in Sources */,
+				8B09264D27CBC4D7006A6488 /* Repository.swift in Sources */,
 				8B09264227CA96C0006A6488 /* UIApplication.swift in Sources */,
 				8B09260C27C82A58006A6488 /* ProductsListModelController.swift in Sources */,
+				8B09266527CC0DE3006A6488 /* LocalRepository.swift in Sources */,
 				8B09258427C7FA94006A6488 /* NetworkRequest.swift in Sources */,
+				8B09267427CC304A006A6488 /* Keys.swift in Sources */,
 				8B0924F527C6219C006A6488 /* PTViewController.swift in Sources */,
 				8B0924CE27C61DC2006A6488 /* InitialViewController.swift in Sources */,
 				8B09263327C82F0F006A6488 /* ProductsListInputProtocol.swift in Sources */,
+				8B09266A27CC0DFC006A6488 /* RemoteRepository.swift in Sources */,
 				8B09263D27C8F89B006A6488 /* GradeRequestData.swift in Sources */,
 				8B0925B227C80C43006A6488 /* GradeFetching.swift in Sources */,
 				8B09254F27C6EFCA006A6488 /* ProductTableViewCell.swift in Sources */,

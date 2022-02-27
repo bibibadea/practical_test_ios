@@ -15,7 +15,10 @@ final class InitialViewController: PTViewController {
     
     // MARK: - Properties
     var coordinator: AppCoordinator?
-    private var networkService = ProductListNetworkService()
+    // replace networkService with Repository
+    // private var networkService = ProductListNetworkService()
+    
+    private var dataManager: DataManager?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -27,14 +30,17 @@ final class InitialViewController: PTViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        //@TODO fetch from cache?
+        dataManager = DataManager()
+        
         spinner.on()
-        networkService.fetchData { [weak self] in
-            self?.spinner.off()
-            self?.coordinator?.openProductModule()
-            print(self?.networkService.gradeFetcher?.grades.count)
-            print(self?.networkService.level1ProductFetcher?.products.count)
-            print(self?.networkService.level2ProductFetcher?.products.count)
+        dataManager?.fetchData { [weak self] level1, level2, grades in
+            DispatchQueue.main.async {
+                self?.spinner.off()
+                self?.coordinator?.dataManager = self?.dataManager
+                self?.coordinator?.openProductModule()
+                
+                print(level1.count, level2.count, grades.count)
+            }
         }
     }
 }
