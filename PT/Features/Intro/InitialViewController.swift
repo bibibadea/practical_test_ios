@@ -15,6 +15,7 @@ final class InitialViewController: PTViewController {
     
     // MARK: - Properties
     var coordinator: AppCoordinator?
+    private var networkService = ProductListNetworkService()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -27,10 +28,13 @@ final class InitialViewController: PTViewController {
         super.viewDidAppear(animated)
         
         //@TODO fetch from cache?
-        self.spinner.on()
-        delay {
-            self.spinner.off()
-            self.coordinator?.openProductModule()
+        spinner.on()
+        networkService.fetchData { [weak self] in
+            self?.spinner.off()
+            self?.coordinator?.openProductModule()
+            print(self?.networkService.gradeFetcher?.grades.count)
+            print(self?.networkService.level1ProductFetcher?.products.count)
+            print(self?.networkService.level2ProductFetcher?.products.count)
         }
     }
 }

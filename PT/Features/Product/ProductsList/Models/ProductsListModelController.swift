@@ -29,8 +29,6 @@ final class ProductsListModelController {
     // MARK: - Init
     init() {
         networkService = ProductListNetworkService()
-        
-        //fetchData()
     }
     
     // MARK: - Logic
