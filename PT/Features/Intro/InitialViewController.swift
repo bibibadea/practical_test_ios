@@ -30,6 +30,7 @@ final class InitialViewController: PTViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        /* Repository - not completed
         dataManager = DataManager()
         
         spinner.on()
@@ -42,6 +43,9 @@ final class InitialViewController: PTViewController {
                 print(level1.count, level2.count, grades.count)
             }
         }
+        */
+        
+        coordinator?.openProductModule()
     }
 }
 

@@ -125,7 +125,7 @@ final class ProductListNetworkService {
             for data in requestData {
                 dispatchGroup.enter()
                 strongSelf.gradeFetcher?.urlParams = [
-                    "productIdxxxxx" : "\(data.productID)",
+                    "productId" : "\(data.productID)",
                     "clientCountLevel1" : "\(data.level1Count)",
                     "clientCountLevel2" : "\(data.level2Count)",
                 ]

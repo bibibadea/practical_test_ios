@@ -24,16 +24,15 @@ final class ProductsListModelController {
     weak var delegate: ProductsListViewControllerProtocol?
     weak var inputProtocol: ProductsListInputProtocol?
     
-    //replace with DataManager
-    //private var networkService: ProductListNetworkService?
+    private var networkService: ProductListNetworkService?
     var dataManager: DataManager?
     
     // MARK: - Init
     init() {
-        // replaced with DataManager
-        // networkService = ProductListNetworkService()
+         networkService = ProductListNetworkService()
     }
     
+    /* WITH DATA_MANAGER
     // MARK: - Logic
     private func updateData() {
         if selectedTab == .level1 {
@@ -100,6 +99,105 @@ final class ProductsListModelController {
             guard let strongSelf = self else { return }
             
             strongSelf.fetchingLevel2InProgress = false
+            strongSelf.delegate?.endRefreshControl()
+            strongSelf.delegate?.showLoader(false)
+            
+            strongSelf.updateData()
+        }
+    }
+    */
+    
+    // MARK: - Logic
+    private func updateData() {
+        if selectedTab == .level1 {
+            inputProtocol?.set(products: networkService?.level1ProductFetcher?.products)
+        }
+        
+        if selectedTab == .level2 {
+            inputProtocol?.set(products: networkService?.level2ProductFetcher?.products)
+        }
+        
+        if selectedTab == .grades {
+            inputProtocol?.set(grades: networkService?.gradeFetcher?.grades)
+        }
+        
+        delegate?.endRefreshControl()
+        delegate?.showLoader(false)
+        delegate?.updateUI()
+        
+        print()
+        print("-----------------")
+        print("level 1 products:", networkService?.level1ProductFetcher?.products.count ?? 0)
+        print("level 2 products:", networkService?.level2ProductFetcher?.products.count ?? 0)
+        print("grades:", networkService?.gradeFetcher?.grades.count ?? 0)
+    }
+    
+    // MARK: - Fetch Data
+    private func fetchData() {
+        guard !fetchingDataInProgress else { return }
+        fetchingDataInProgress = true
+        
+        delegate?.showLoader(true)
+        networkService?.fetchData() { [weak self] in
+            guard let strongSelf = self else { return }
+            
+            strongSelf.fetchingDataInProgress = false
+            strongSelf.delegate?.endRefreshControl()
+            strongSelf.delegate?.showLoader(false)
+            
+            strongSelf.updateData()
+        }
+    }
+    
+    func fetchProductLevel1() {
+        guard !fetchingLevel1InProgress else { return }
+        fetchingLevel1InProgress = true
+        
+        delegate?.showLoader(true)
+        networkService?.fetchLevel1Products(group: nil) { [weak self] success, error in
+            guard let strongSelf = self else { return }
+            
+            if success {
+                strongSelf.fetchingLevel1InProgress = false
+                strongSelf.delegate?.endRefreshControl()
+                strongSelf.delegate?.showLoader(false)
+                
+                strongSelf.updateData()
+            } else {
+                strongSelf.delegate?.alert(error)
+            }
+        }
+    }
+    
+    func fetchProductLevel2() {
+        guard !fetchingLevel2InProgress else { return }
+        fetchingLevel2InProgress = true
+        
+        delegate?.showLoader(true)
+        networkService?.fetchLevel2Products(group: nil) { [weak self] success, error in
+            guard let strongSelf = self else { return }
+            
+            if success {
+                strongSelf.fetchingLevel2InProgress = false
+                strongSelf.delegate?.endRefreshControl()
+                strongSelf.delegate?.showLoader(false)
+                
+                strongSelf.updateData()
+            } else {
+                strongSelf.delegate?.alert(error)
+            }
+        }
+    }
+    
+    func fetchProducts() {
+        guard !fetchingProductsInProgress else { return }
+        fetchingProductsInProgress = true
+        
+        delegate?.showLoader(true)
+        networkService?.fetchProducts { [weak self] in
+            guard let strongSelf = self else { return }
+            
+            strongSelf.fetchingProductsInProgress = false
             strongSelf.delegate?.endRefreshControl()
             strongSelf.delegate?.showLoader(false)
             
