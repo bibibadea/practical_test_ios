@@ -13,8 +13,6 @@ protocol NetworkRequestProtocol {
 
 class NetworkRequest: NetworkRequestProtocol {
     func request<Request>(_ request: Request, completion: @escaping (Result<Request.Response, Error>) -> ()) where Request : DataRequest {
-        
-        DispatchQueue.global(qos: .background).async {
             //
             guard var urlComponent = URLComponents(string: request.url) else {
                 return completion(.failure(NSError(domain: NetworkError.invalidEndpoint, code: 404, userInfo: nil)))
@@ -69,5 +67,4 @@ class NetworkRequest: NetworkRequestProtocol {
                 
             }.resume()
         }
-    }
 }

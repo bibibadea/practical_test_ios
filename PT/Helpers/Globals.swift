@@ -46,15 +46,11 @@ func alert(_ error: Error?, completion: @escaping Closure) {
         
         alert.addAction(UIAlertAction(title: .ok,
                                       style: .default,
-                                      handler: nil))
+                                      handler: { _ in
+                                        completion()
+                                      }))
         
-        if let alertController = topController() as? UIAlertController {
-            alertController.present(alert, animated: false, completion: completion)
-        } else if let presenting = topController()?.presentingViewController as? UINavigationController {
-            presenting.topViewController?.present(alert, animated: true, completion: nil)
-        } else {
-            topController()?.present(alert, animated: true, completion: nil)
-        }
+        topController()?.present(alert, animated: true, completion: nil)
     }
 }
 

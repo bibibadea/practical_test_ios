@@ -15,6 +15,11 @@ func topController() -> UIViewController? {
     let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
 
     if let navigation = window?.rootViewController as? UINavigationController {
+        
+        //print("o+l", navigation.visibleViewController)
+        
+        //print("o+l", navigation.presentedViewController)
+        
         return navigation.visibleViewController
     }
     

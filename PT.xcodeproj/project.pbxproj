@@ -46,6 +46,7 @@
 		8B09263827C8E903006A6488 /* GradeFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09263727C8E903006A6488 /* GradeFetcher.swift */; };
 		8B09263D27C8F89B006A6488 /* GradeRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09263C27C8F89B006A6488 /* GradeRequestData.swift */; };
 		8B09264227CA96C0006A6488 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09264127CA96BF006A6488 /* UIApplication.swift */; };
+		8B09264727CADA08006A6488 /* ProductListNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09264627CADA07006A6488 /* ProductListNetworkService.swift */; };
 		8BA232CF27C611100013F559 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA232CE27C611100013F559 /* AppDelegate.swift */; };
 		8BA232D827C611190013F559 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BA232D727C611190013F559 /* Assets.xcassets */; };
 		8BA232DB27C611190013F559 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BA232D927C611190013F559 /* LaunchScreen.storyboard */; };
@@ -110,6 +111,7 @@
 		8B09263727C8E903006A6488 /* GradeFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeFetcher.swift; sourceTree = "<group>"; };
 		8B09263C27C8F89B006A6488 /* GradeRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeRequestData.swift; sourceTree = "<group>"; };
 		8B09264127CA96BF006A6488 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		8B09264627CADA07006A6488 /* ProductListNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListNetworkService.swift; sourceTree = "<group>"; };
 		8BA232CB27C611100013F559 /* PT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BA232CE27C611100013F559 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BA232D727C611190013F559 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 				8B0925DC27C811FF006A6488 /* ProductsLevel2Fetcher.swift */,
 				8B09263727C8E903006A6488 /* GradeFetcher.swift */,
 				8B09263C27C8F89B006A6488 /* GradeRequestData.swift */,
+				8B09264627CADA07006A6488 /* ProductListNetworkService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -572,6 +575,7 @@
 				8B09262627C82EDA006A6488 /* ProductsListOutputProtocol.swift in Sources */,
 				8B0924E227C61E9F006A6488 /* UIView.swift in Sources */,
 				8B0925F427C82199006A6488 /* ProductCoordinator.swift in Sources */,
+				8B09264727CADA08006A6488 /* ProductListNetworkService.swift in Sources */,
 				8BA232CF27C611100013F559 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
